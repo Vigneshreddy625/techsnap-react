@@ -130,7 +130,15 @@ const TabComponent = () => {
       </div>
       <div className="p-4 bg-white border border-gray-200 mt-2 rounded-md shadow">
         {tabs[activeTab].content}
+        <div className="mt-2 flex justify-center items-center">
+        <button className="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105">
+        <span className="flex items-center">
+          Save settings
+        </span>
+      </button>
       </div>
+      </div>
+      
     </div>
   );
 };
