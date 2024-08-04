@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import userdata from "../data.json";
 import { FaSearch } from "react-icons/fa";
 import {
@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import {
   Pagination,
   PaginationContent,
@@ -22,13 +21,16 @@ import {
 function Users() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const [searchItem, setSearchItem] = useState("");
-  const [sortCriteria, setSortCriteria] = useState(null);
-  const pagesPerChunk = 10;
+  const [sortCriteria, setSortCriteria] = useState("date");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentChunk, setCurrentChunk] = useState(1);
+  const [jumpPage, setJumpPage] = useState("");
+  
+  const pagesPerChunk = 10;
 
-  const filteredItems = userdata
-    .filter((user) => {
+  // Filter the users based on search criteria
+  const filteredItems = useMemo(() => {
+    return userdata.filter((user) => {
       const searchLower = searchItem.toLowerCase();
       const lastName = user.last_name ? user.last_name.toLowerCase() : "";
       const email = user.email ? user.email.toLowerCase() : "";
@@ -38,24 +40,30 @@ function Users() {
         searchLower === "" ||
         lastName.includes(searchLower) ||
         email.includes(searchLower) ||
-        dateJoined.includes(searchItem)
+        dateJoined.includes(searchLower)
       );
-    })
-    .sort((a, b) => {
-      if (sortCriteria === "date") {
-        return new Date(b.datejoined) - new Date(a.datejoined);
-      } else if (sortCriteria === "name") {
-        return a.last_name.localeCompare(b.last_name);
-      }
-      return 0;
     });
+  }, [searchItem]);
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const sortedItems = useMemo(() => {
+    if (sortCriteria === "name") {
+      return filteredItems.sort((a, b) => {
+        const lastNameComparison = a.last_name.localeCompare(b.last_name);
+        if (lastNameComparison !== 0) {
+          return lastNameComparison;
+        }
+        return new Date(b.datejoined) - new Date(a.datejoined);
+      });
+    } else {
+      return filteredItems.sort((a, b) => {
+        return new Date(b.datejoined) - new Date(a.datejoined);
+      });
+    }
+  }, [filteredItems, sortCriteria]);
+
+  const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentItems = sortedItems.slice(startIndex, startIndex + itemsPerPage);
 
   const chunkStart = (currentChunk - 1) * pagesPerChunk + 1;
   const chunkEnd = Math.min(chunkStart + pagesPerChunk - 1, totalPages);
@@ -77,11 +85,35 @@ function Users() {
     setSortCriteria(value);
   };
 
+  const handleJumpPageChange = (event) => {
+    setJumpPage(event.target.value);
+  };
+
+  const handleJumpToPage = () => {
+    const page = Number(jumpPage);
+    if (page >= 1 && page <= totalPages) {
+      handlePageChange(page);
+      setJumpPage("");
+    }
+  };
+
+  const handleJumpToFirstPage = () => {
+    handlePageChange(1);
+  };
+
+  const handleJumpToFinalPage = () => {
+    handlePageChange(totalPages);
+  };
+
+  
+
   return (
     <>
       <div className="overflow-x-auto px-4 lg:px-20 py-4">
         <div className="mb-8 flex flex-col md:flex-row items-center justify-between">
-          <h3 className="text-2xl font-bold underline mb-4 md:mb-0">Enrolled Users</h3>
+          <h3 className="text-2xl font-bold underline mb-4 md:mb-0">
+            Enrolled Users
+          </h3>
           <div className="flex flex-col md:flex-row items-center gap-2">
             <div className="relative w-full md:w-64 mb-4 md:mb-0">
               <input
@@ -120,6 +152,21 @@ function Users() {
                 <option value={100}>100</option>
               </select>
             </div>
+            <div className="flex items-center gap-2 mt-4 md:mt-0">
+              <input
+                type="number"
+                value={jumpPage}
+                onChange={handleJumpPageChange}
+                className="border border-gray-300 rounded-md p-2 w-20"
+                placeholder="Page"
+              />
+              <button
+                onClick={handleJumpToPage}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Go
+              </button>
+            </div>
           </div>
         </div>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -127,10 +174,18 @@ function Users() {
             <table className="min-w-full">
               <thead className="bg-gray-100">
                 <tr>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Username</th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Email</th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Date Joined</th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Gender</th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
+                    Username
+                  </th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
+                    Email
+                  </th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
+                    Date Joined
+                  </th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
+                    Gender
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -149,6 +204,12 @@ function Users() {
         <div className="mt-4 flex justify-center items-center">
           <Pagination>
             <PaginationContent>
+            <button
+                onClick={handleJumpToFirstPage}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                First Page
+              </button>
               <PaginationItem>
                 <PaginationPrevious
                   href="#"
@@ -182,6 +243,12 @@ function Users() {
                   onClick={() => handlePageChange(currentPage + 1)}
                 />
               </PaginationItem>
+              <button
+                onClick={handleJumpToFinalPage}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Last Page
+              </button>
             </PaginationContent>
           </Pagination>
         </div>
