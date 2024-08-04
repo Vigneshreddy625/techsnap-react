@@ -22,7 +22,7 @@ import {
 function Users() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const [searchItem, setSearchItem] = useState("");
-  const [sortCriteria, setSortCriteria] = useState(null); 
+  const [sortCriteria, setSortCriteria] = useState(null);
   const pagesPerChunk = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentChunk, setCurrentChunk] = useState(1);
@@ -43,12 +43,11 @@ function Users() {
     })
     .sort((a, b) => {
       if (sortCriteria === "date") {
-        return new Date(b.datejoined) - new Date(a.datejoined); 
-      }
-      else if (sortCriteria === "name") {
+        return new Date(b.datejoined) - new Date(a.datejoined);
+      } else if (sortCriteria === "name") {
         return a.last_name.localeCompare(b.last_name);
       }
-      return 0; 
+      return 0;
     });
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
@@ -81,31 +80,31 @@ function Users() {
   return (
     <>
       <div className="overflow-x-auto px-4 lg:px-20 py-4">
-        <div className="mb-8 flex items-center justify-between">
-          <h3 className="text-2xl font-bold underline">Enrolled Users</h3>
-          <div className="flex items-center gap-2">
-            <div className="relative w-full md:w-64 mb-4 md:mb-0 right-0 top-3">
+        <div className="mb-8 flex flex-col md:flex-row items-center justify-between">
+          <h3 className="text-2xl font-bold underline mb-4 md:mb-0">Enrolled Users</h3>
+          <div className="flex flex-col md:flex-row items-center gap-2">
+            <div className="relative w-full md:w-64 mb-4 md:mb-0">
               <input
                 type="text"
                 placeholder="Search by name, email, or date joined"
                 onChange={(e) => setSearchItem(e.target.value)}
-                className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 outline-none"
+                className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
               />
               <FaSearch className="absolute left-3 top-3 text-gray-400" />
             </div>
             <Select onValueChange={handleSortChange}>
-              <SelectTrigger className="w-[80px] mt-6">
+              <SelectTrigger className="w-full md:w-[80px] mt-2 md:mt-0">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
-              <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="name">Name</SelectItem>
                 <SelectItem value="date">Date</SelectItem>
               </SelectContent>
             </Select>
-            <div className="flex flex-col gap-2 md:gap-0">
+            <div className="flex flex-col items-center md:flex-row md:gap-0">
               <label
                 htmlFor="items-per-page"
-                className="relative right-0 bottom-1 md:ml-4 text-sm text-gray-700"
+                className="text-sm text-gray-700 mr-2 md:mr-4"
               >
                 per page:
               </label>
@@ -113,7 +112,7 @@ function Users() {
                 id="items-per-page"
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
-                className="bg-white border border-gray-600 rounded-md shadow-sm p-2 focus:outline-none w-20 md:w-20 h-10"
+                className="bg-white border border-gray-600 rounded-md shadow-sm p-2 focus:outline-none w-20 md:w-20"
               >
                 <option value={25}>25</option>
                 <option value={50}>50</option>
@@ -124,28 +123,28 @@ function Users() {
           </div>
         </div>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <table className="min-w-full">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-2 text-left text-gray-600">Username</th>
-                <th className="px-4 py-2 text-left text-gray-600">Email</th>
-                <th className="px-4 py-2 text-left text-gray-600">
-                  Date Joined
-                </th>
-                <th className="px-4 py-2 text-left text-gray-600">Gender</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((user, index) => (
-                <tr key={index} className="border-t">
-                  <td className="px-4 py-2">{user.last_name}</td>
-                  <td className="px-4 py-2">{user.email}</td>
-                  <td className="px-4 py-2">{user.datejoined}</td>
-                  <td className="px-4 py-2">{user.gender}</td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Username</th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Email</th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Date Joined</th>
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">Gender</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentItems.map((user, index) => (
+                  <tr key={index} className="border-t">
+                    <td className="px-4 py-2">{user.last_name}</td>
+                    <td className="px-4 py-2">{user.email}</td>
+                    <td className="px-4 py-2">{user.datejoined}</td>
+                    <td className="px-4 py-2">{user.gender}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="mt-4 flex justify-center items-center">
           <Pagination>
