@@ -127,17 +127,6 @@ function Users() {
               />
               <FaSearch className="absolute left-3 top-3 text-gray-400" />
             </div>
-            <Select onValueChange={handleSortChange}>
-              <SelectTrigger className="w-full md:w-[80px] mt-2 md:mt-0">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="name">Name</SelectItem>
-                <SelectItem value="date">Date</SelectItem>
-                <SelectItem value="email">Email</SelectItem>
-                <SelectItem value="gender">Gender</SelectItem>
-              </SelectContent>
-            </Select>
             <div className="flex flex-col items-center md:flex-row md:gap-0">
               <label
                 htmlFor="items-per-page"
