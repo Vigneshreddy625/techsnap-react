@@ -24,6 +24,7 @@ import Video from "./components/Video";
 import Test from "./components/Test";
 import Text from "./components/Text";
 import PracticeText from "./components/PracticeText";
+import ManageTestimonial from "./components/MnageTestimonials"
 
 function AppRoutes() { 
   return (
@@ -51,6 +52,7 @@ function AppRoutes() {
           <Route path="addproject" element={<ManageAddProject />} />
           <Route path="addassessment" element={<ManageAttachAssessment />} />
           <Route path="coursestructure" element={<ManageCourseStructure />} />
+          <Route path="testimonial" element={<ManageTestimonial/>}/>
           <Route path="html/introduction" element={<Introduction />} />
           <Route path="html/introduction/quiz" element={<Quiz />} />
           <Route path="html/introduction/video" element={<Video />} />

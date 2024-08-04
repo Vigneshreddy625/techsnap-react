@@ -25,10 +25,10 @@ function Users() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentChunk, setCurrentChunk] = useState(1);
   const [jumpPage, setJumpPage] = useState("");
-  
+
   const pagesPerChunk = 10;
 
-  // Filter the users based on search criteria
+  // Filter and sort the users
   const filteredItems = useMemo(() => {
     return userdata.filter((user) => {
       const searchLower = searchItem.toLowerCase();
@@ -40,25 +40,22 @@ function Users() {
         searchLower === "" ||
         lastName.includes(searchLower) ||
         email.includes(searchLower) ||
-        dateJoined.includes(searchLower)
+        dateJoined.includes(searchItem)
       );
     });
   }, [searchItem]);
 
   const sortedItems = useMemo(() => {
-    if (sortCriteria === "name") {
-      return filteredItems.sort((a, b) => {
-        const lastNameComparison = a.last_name.localeCompare(b.last_name);
-        if (lastNameComparison !== 0) {
-          return lastNameComparison;
-        }
+    const sorted = [...filteredItems].sort((a, b) => {
+      if (sortCriteria === "date") {
         return new Date(b.datejoined) - new Date(a.datejoined);
-      });
-    } else {
-      return filteredItems.sort((a, b) => {
-        return new Date(b.datejoined) - new Date(a.datejoined);
-      });
-    }
+      } else if (sortCriteria === "name") {
+        return a.last_name.localeCompare(b.last_name);
+      }
+      return 0;
+    });
+
+    return sorted;
   }, [filteredItems, sortCriteria]);
 
   const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
@@ -104,8 +101,6 @@ function Users() {
   const handleJumpToFinalPage = () => {
     handlePageChange(totalPages);
   };
-
-  
 
   return (
     <>
@@ -204,7 +199,7 @@ function Users() {
         <div className="mt-4 flex justify-center items-center">
           <Pagination>
             <PaginationContent>
-            <button
+              <button
                 onClick={handleJumpToFirstPage}
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
               >

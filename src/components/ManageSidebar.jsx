@@ -51,7 +51,7 @@ function PreviewSidebar({ isPanelOpen, toggleSidebar }) {
     {
       title: 'Advertisement',
       items: [
-        { icon: requestServiceIcon, text: 'Testimonials', link: '#' },
+        { icon: requestServiceIcon, text: 'Testimonials', link: 'testimonial' },
         { icon: commercialIcon, text: 'Related courses', link: 'dashboard.html' },
         { icon: calendarIcon, text: 'Related careerpaths', link: 'timetable.html' },
       ]
