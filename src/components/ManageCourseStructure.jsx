@@ -182,7 +182,7 @@ function CourseStructure() {
         </Droppable>
       </DragDropContext>
       {isUnitPopup && (
-        <div className="popup fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl border relative flex flex-col md:flex-row w-full max-w-4xl mx-4 my-8 md:my-16 lg:my-24 h-[calc(100vh-8rem)] md:h-[calc(100vh-6rem)] lg:h-[calc(100vh-8rem)]">
             <div className="w-full md:w-1/2 flex-shrink-0">
               <img
@@ -226,7 +226,7 @@ function CourseStructure() {
       )}
 
       {isLessonPopup && (
-        <div className="popup fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
           <div className="bg-white rounded shadow-xl border relative flex flex-row w-full max-w-4xl mx-4 my-8 md:my-16 lg:my-24 h-[calc(100vh-8rem)] md:h-[calc(100vh-6rem)] lg:h-[calc(100vh-8rem)]">
             <div className="w-full md:w-1/2">
               <img
