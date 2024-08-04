@@ -22,13 +22,14 @@ function Users() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
   const [searchItem, setSearchItem] = useState("");
   const [sortCriteria, setSortCriteria] = useState("date");
+  const [sortDirection, setSortDirection] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [currentChunk, setCurrentChunk] = useState(1);
   const [jumpPage, setJumpPage] = useState("");
 
   const pagesPerChunk = 10;
 
-  // Filter and sort the users
+
   const filteredItems = useMemo(() => {
     return userdata.filter((user) => {
       const searchLower = searchItem.toLowerCase();
@@ -47,16 +48,22 @@ function Users() {
 
   const sortedItems = useMemo(() => {
     const sorted = [...filteredItems].sort((a, b) => {
+      let comparison = 0;
       if (sortCriteria === "date") {
-        return new Date(b.datejoined) - new Date(a.datejoined);
+        comparison = new Date(b.datejoined) - new Date(a.datejoined);
       } else if (sortCriteria === "name") {
-        return a.last_name.localeCompare(b.last_name);
+        comparison = a.last_name.localeCompare(b.last_name);
+      } else if (sortCriteria === "email") {
+        comparison = a.email.localeCompare(b.email);
+      } else if (sortCriteria === "gender") {
+        comparison = a.gender.localeCompare(b.gender);
       }
-      return 0;
+
+      return sortDirection === "desc" ? comparison : -comparison;
     });
 
     return sorted;
-  }, [filteredItems, sortCriteria]);
+  }, [filteredItems, sortCriteria, sortDirection]);
 
   const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -78,8 +85,9 @@ function Users() {
     setCurrentPage(1);
   };
 
-  const handleSortChange = (value) => {
-    setSortCriteria(value);
+  const handleSortChange = (column) => {
+    setSortCriteria(column);
+    setSortDirection((prevDirection) => (prevDirection === "desc" ? "asc" : "desc"));
   };
 
   const handleJumpPageChange = (event) => {
@@ -126,6 +134,8 @@ function Users() {
               <SelectContent>
                 <SelectItem value="name">Name</SelectItem>
                 <SelectItem value="date">Date</SelectItem>
+                <SelectItem value="email">Email</SelectItem>
+                <SelectItem value="gender">Gender</SelectItem>
               </SelectContent>
             </Select>
             <div className="flex flex-col items-center md:flex-row md:gap-0">
@@ -169,16 +179,28 @@ function Users() {
             <table className="min-w-full">
               <thead className="bg-gray-100">
                 <tr>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
-                    Username
+                  <th
+                    className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSortChange("name")}
+                  >
+                    Username {sortCriteria === "name" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
                   </th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
-                    Email
+                  <th
+                    className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSortChange("email")}
+                  >
+                    Email {sortCriteria === "email" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
                   </th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
-                    Date Joined
+                  <th
+                    className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSortChange("date")}
+                  >
+                    Date Joined {sortCriteria === "date" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
                   </th>
-                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap">
+                  <th
+                    className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
+                    
+                  >
                     Gender
                   </th>
                 </tr>
