@@ -94,7 +94,7 @@ function CourseStructure() {
 
   const handleSave = () => {
     if (isMultipleActive) {
-      navigate("/course/started/html/introduction");
+      navigate("/createsnap/course/started/html/introduction");
     } else if (isSingleActive) {
       setIsLessonPopup(false);
     }

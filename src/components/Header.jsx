@@ -12,8 +12,6 @@ import logoutIcon from '../assets/rsc/icons8-logout-48.png';
 
 
 function Header({handlePanel, toggleProfile,profileOpen}) {
-  
-
   return (
     <>
       <div className="navigation z-10">

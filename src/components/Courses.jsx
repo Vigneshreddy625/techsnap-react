@@ -91,7 +91,7 @@ const CourseList = () => {
   }, [searchTerm]);
 
   const handleCourse = (index) => {
-    navigate("/course/started/info");
+    navigate("/createsnap/course/started/info");
   };
 
   return (

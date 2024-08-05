@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,Link } from 'react-router-dom';
 import "./Profile.css";
 import projectManagementIcon from '../assets/rsc/icons8-project-management-48.png';
 import chevronDownIcon from '../assets/rsc/icons8-chevron-down-30.png';
@@ -29,20 +29,20 @@ function Sidebar({ isPanelOpen, toggleSidebar }) {
     {
       title: 'Dashboard',
       items: [
-        { icon: dashboardIcon, text: 'Analytics', link: '/analytics' },
-        { icon: eLearningIcon, text: 'Manage access', link: '/index.html' },
-        { icon: eLearningIcon, text: 'Management', link: '/manage' },
-        { icon: userGroupsIcon, text: 'Doubts', link: '/groups.html' }
+        { icon: dashboardIcon, text: 'Analytics', link: '/createsnap/analytics' },
+        { icon: eLearningIcon, text: 'Manage access', link: '/createsnap/index.html' },
+        { icon: eLearningIcon, text: 'Management', link: '/createsnap/manage' },
+        { icon: userGroupsIcon, text: 'Doubts', link: '/createsnap/groups.html' }
       ]
     },
     {
       title: 'Snap it',
       items: [
-        { icon: dashboardIcon, text: 'Career Paths', link: '/career-path' },
-        { icon: eLearningIcon, text: 'Skill Paths', link: '/index.html' },
-        { icon: userGroupsIcon, text: 'Courses', link: '/course' },
-        { icon: commercialIcon, text: 'Projects', link: '/groups.html' },
-        { icon: userGroupsIcon, text: 'Assignments', link: '/groups.html' },
+        { icon: dashboardIcon, text: 'Career Paths', link: '/createsnap/career-path' },
+        { icon: eLearningIcon, text: 'Skill Paths', link: '/createsnap/index.html' },
+        { icon: userGroupsIcon, text: 'Courses', link: '/createsnap/course' },
+        { icon: commercialIcon, text: 'Projects', link: '/createsnap/groups.html' },
+        { icon: userGroupsIcon, text: 'Assignments', link: '/createsnap/groups.html' },
       ]
     },
   ];
@@ -55,10 +55,10 @@ function Sidebar({ isPanelOpen, toggleSidebar }) {
             <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
-        <div className="panel-item logo-item">
+        <div className="text-xl text-white mb-2 p-2 font-semibold">
           <div className="logo">
             <img src={projectManagementIcon} alt="managesnap logo" className="logo-image" />
-            <p className="logo-name">Create Snap</p>
+            <p className="">Create Snap</p>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ function Sidebar({ isPanelOpen, toggleSidebar }) {
                     key={idx}
                   >
                     <img src={item.icon} alt="" className="item" />
-                    <p className="name"><a href={item.link}>{item.text}</a></p>
+                    <p className="name"><Link to={`${item.link}`}>{item.text}</Link></p>
                   </div>
                 ))}
               </div>

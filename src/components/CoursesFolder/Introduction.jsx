@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Quiz.css";
 
@@ -25,12 +24,6 @@ function Introduction() {
     setOpenIndexes(courses.reduce((acc, _, index) => ({ ...acc, [index]: true }), {}));
   }, [courses]);
 
-  const toggleDropdown = (index) => {
-    setOpenIndexes((prevOpenIndexes) => ({
-      ...prevOpenIndexes,
-      [index]: !prevOpenIndexes[index],
-    }));
-  };
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -122,19 +115,19 @@ function Introduction() {
   const handleSave = (type) => {
     switch (type) {
       case 'Quiz':
-        navigate("/course/started/html/introduction/quiz");
+        navigate("/createsnap/course/started/html/introduction/quiz");
         break;
       case 'Test':
-        navigate("/course/started/html/introduction/test");
+        navigate("/createsnap/course/started/html/introduction/test");
         break;
       case 'Video':
-        navigate("/course/started/html/introduction/video");
+        navigate("/createsnap/course/started/html/introduction/video");
         break;
       case 'Article':
-        navigate("/course/started/html/introduction/text");
+        navigate("/createsnap/course/started/html/introduction/text");
         break;
       case 'Practice text':
-        navigate("/course/started/html/introduction/practicetext");
+        navigate("/createsnap/course/started/html/introduction/practicetext");
         break;
       default:
         break;

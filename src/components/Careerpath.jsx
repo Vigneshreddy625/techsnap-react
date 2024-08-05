@@ -65,7 +65,7 @@ function Careerpath() {
   }, [searchTerm]);
 
   const handlePreview = (courseId) => {
-    navigate(`/career-path/preview/info`);
+    navigate(`/createsnap/career-path/preview/info`);
   };
 
   return (
