@@ -69,7 +69,7 @@ function BottomBar() {
           </span>
         </Link>
         <Link
-          to={"/projects"}
+          to={"/createsnap"}
           className={`inline-flex flex-col items-center justify-center px-5 "
         ${
           isActive("/projects")

@@ -21,7 +21,7 @@ function ProfileIcon() {
           }}
         >
           <div className="profile_item p-2 font-bold">
-          <Link to="/createsnap">Create Snap</Link>
+          <p><Link to="/createsnap">Create Snap</Link></p>
           </div>
           <div className="profile_item p-2 font-bold">
             <p>Dashboard</p>
