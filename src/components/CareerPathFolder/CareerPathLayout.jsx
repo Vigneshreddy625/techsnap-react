@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import Header from "./Header";
+import Header from "../Header";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import PreviewSidebar from "./PreviewSidebar";
-import "./Layout.css";
-import TimelinePopup from "../popups/TimelinePopup";
+import PreviewSidebar from "./CareerPathSidebar";
+import "../Layout.css";
+import TimelinePopup from "../../popups/CareerPathPopup";
 
 function Layout() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);

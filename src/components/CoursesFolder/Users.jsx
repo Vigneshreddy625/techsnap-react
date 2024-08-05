@@ -1,13 +1,7 @@
 import React, { useState, useMemo } from "react";
-import userdata from "../data.json";
+import userdata from "../../data.json";
 import { FaSearch } from "react-icons/fa";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   Pagination,
   PaginationContent,
@@ -28,7 +22,6 @@ function Users() {
   const [jumpPage, setJumpPage] = useState("");
 
   const pagesPerChunk = 10;
-
 
   const filteredItems = useMemo(() => {
     return userdata.filter((user) => {
@@ -87,7 +80,9 @@ function Users() {
 
   const handleSortChange = (column) => {
     setSortCriteria(column);
-    setSortDirection((prevDirection) => (prevDirection === "desc" ? "asc" : "desc"));
+    setSortDirection((prevDirection) =>
+      prevDirection === "desc" ? "asc" : "desc"
+    );
   };
 
   const handleJumpPageChange = (event) => {
@@ -146,17 +141,17 @@ function Users() {
                 <option value={100}>100</option>
               </select>
             </div>
-            <div className="flex items-center gap-2 mt-4 md:mt-0">
+            <div className="relative flex items-center mt-4 md:mt-0 border border-gray-200 rounded-md w-fit">
               <input
                 type="number"
                 value={jumpPage}
                 onChange={handleJumpPageChange}
-                className="border border-gray-300 rounded-md p-2 w-20"
+                className="p-2 w-20 pr-4"
                 placeholder="Page"
               />
               <button
                 onClick={handleJumpToPage}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                className="absolute right-0 top-0 bottom-0 bg-blue-500 text-white px-1 py-2 rounded-r-md"
               >
                 Go
               </button>
@@ -172,24 +167,36 @@ function Users() {
                     className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
                     onClick={() => handleSortChange("name")}
                   >
-                    Username {sortCriteria === "name" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
+                    Username{" "}
+                    {sortCriteria === "name"
+                      ? sortDirection === "asc"
+                        ? "▲"
+                        : "▼"
+                      : ""}
                   </th>
                   <th
                     className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
                     onClick={() => handleSortChange("email")}
                   >
-                    Email {sortCriteria === "email" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
+                    Email{" "}
+                    {sortCriteria === "email"
+                      ? sortDirection === "asc"
+                        ? "▲"
+                        : "▼"
+                      : ""}
                   </th>
                   <th
                     className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
                     onClick={() => handleSortChange("date")}
                   >
-                    Date Joined {sortCriteria === "date" ? (sortDirection === "asc" ? "▲" : "▼") : ""}
+                    Date Joined{" "}
+                    {sortCriteria === "date"
+                      ? sortDirection === "asc"
+                        ? "▲"
+                        : "▼"
+                      : ""}
                   </th>
-                  <th
-                    className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer"
-                    
-                  >
+                  <th className="px-4 py-2 text-left text-gray-600 whitespace-nowrap cursor-pointer">
                     Gender
                   </th>
                 </tr>

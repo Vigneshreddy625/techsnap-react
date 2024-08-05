@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation if you haven't already
+import { useLocation } from 'react-router-dom';
 import "./Profile.css";
 import projectManagementIcon from '../assets/rsc/icons8-project-management-48.png';
 import chevronDownIcon from '../assets/rsc/icons8-chevron-down-30.png';

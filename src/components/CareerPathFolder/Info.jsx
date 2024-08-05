@@ -1,5 +1,5 @@
 import React from 'react';
-import "./courses-style.css";
+import "../courses-style.css";
 
 function Info() {
   return (

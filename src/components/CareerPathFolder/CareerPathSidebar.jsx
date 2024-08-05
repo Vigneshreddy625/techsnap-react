@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import "./Profile.css";
-import projectManagementIcon from '../assets/rsc/icons8-project-management-48.png';
-import chevronDownIcon from '../assets/rsc/icons8-chevron-down-30.png';
-import chevronUpIcon from '../assets/rsc/icons8-chevron-up-30.png';
-import dashboardIcon from '../assets/rsc/icons8-dashboard-layout-48.png';
-import eLearningIcon from '../assets/rsc/icons8-e-learning-48.png';
-import userGroupsIcon from '../assets/rsc/icons8-user-groups-48.png';
-import requestServiceIcon from '../assets/rsc/icons8-request-service-48.png';
-import commercialIcon from '../assets/rsc/icons8-commercial-48.png';
-import calendarIcon from '../assets/rsc/icons8-calendar-48.png';
-import unitIcon from '../assets/rsc/icons8-unit-48.png';
-import supportIcon from '../assets/rsc/icons8-support-60.png';
+import "../Profile.css";
+import projectManagementIcon from '../../assets/rsc/icons8-project-management-48.png';
+import chevronDownIcon from '../../assets/rsc/icons8-chevron-down-30.png';
+import chevronUpIcon from '../../assets/rsc/icons8-chevron-up-30.png';
+import dashboardIcon from '../../assets/rsc/icons8-dashboard-layout-48.png';
+import eLearningIcon from '../../assets/rsc/icons8-e-learning-48.png';
+import userGroupsIcon from '../../assets/rsc/icons8-user-groups-48.png';
+import requestServiceIcon from '../../assets/rsc/icons8-request-service-48.png';
+import commercialIcon from '../../assets/rsc/icons8-commercial-48.png';
+import calendarIcon from '../../assets/rsc/icons8-calendar-48.png';
+import unitIcon from '../../assets/rsc/icons8-unit-48.png';
+import supportIcon from '../../assets/rsc/icons8-support-60.png';
 
 function PreviewSidebar({ isPanelOpen, toggleSidebar }) {
   const location = useLocation();
-  console.log(location)
   const [expandedPanels, setExpandedPanels] = useState({
     0: true,
     1: true,
@@ -33,35 +32,49 @@ function PreviewSidebar({ isPanelOpen, toggleSidebar }) {
 
   const panels = [
     {
-      title: 'Snap It',
-      items: [
-        { icon: dashboardIcon, text: 'info', link: 'info' },
-        { icon: dashboardIcon, text: 'banner-section', link: 'banner' },
-      ]
-    },
-    {
       title: 'Tools',
       items: [
-        { icon: requestServiceIcon, text: 'Course Structure', link: 'coursestructure' },
-        { icon: commercialIcon, text: 'Course Setting', link: 'coursesetting' },
-        { icon: commercialIcon, text: 'Add Project', link: 'addproject' },
-        { icon: commercialIcon, text: 'Add Assessment', link: 'addassessment' }
+        { icon: dashboardIcon, text: 'info', link: '/career-path/preview/info' },
+        { icon: dashboardIcon, text: 'banner-section', link: 'index.html' },
+        { icon: requestServiceIcon, text: 'viewskills', link: 'groups.html' },
+        { icon: userGroupsIcon, text: 'popups', link: 'groups.html' }
       ]
     },
     {
-      title: 'Advertisement',
+      title: 'Path',
       items: [
-        { icon: requestServiceIcon, text: 'Testimonials', link: 'testimonial' },
-        { icon: commercialIcon, text: 'Related courses', link: 'dashboard.html' },
-        { icon: calendarIcon, text: 'Related careerpaths', link: 'timetable.html' },
+        { icon: requestServiceIcon, text: 'Add timeline', link: 'addtimeline' },
+        { icon: commercialIcon, text: 'Existing timelines', link: 'viewtimeline' },
+        { icon: commercialIcon, text: 'HTML', link: 'html' },
+        { icon: commercialIcon, text: 'CSS', link: 'css' },
+        { icon: commercialIcon, text: 'JS', link: 'js' }
+      ]
+    },
+    {
+      title: 'Skill paths',
+      items: [
+        { icon: requestServiceIcon, text: 'Add Related courses', link: '#' },
+        { icon: requestServiceIcon, text: 'Add Related projects', link: 'dashboard.html' },
+        { icon: requestServiceIcon, text: 'Attach Skill path', link: 'timetable.html' },
+        { icon: requestServiceIcon, text: 'Attached Skill path', link: 'timetable.html' }
+      ]
+    },
+    {
+      title: 'Skill paths',
+      items: [
+        { icon: requestServiceIcon, text: 'Verified by', link: '#' },
+        { icon: commercialIcon, text: 'Testimonials', link: 'dashboard.html' },
+        { icon: calendarIcon, text: 'Related CPS', link: 'timetable.html' },
+        { icon: eLearningIcon, text: 'Companies', link: 'timetable.html' }
       ]
     },
     {
       title: 'Statistics',
       items: [
-        { icon: requestServiceIcon, text: 'Enrolled users', link: 'users' },
-        { icon: commercialIcon, text: 'Total Money', link: 'dashboard.html' },
-        { icon: unitIcon, text: 'View Course', link: 'timetable.html' },
+        { icon: requestServiceIcon, text: 'Enrolled users', link: '#' },
+        { icon: commercialIcon, text: 'View course', link: 'dashboard.html' },
+        { icon: unitIcon, text: 'Know in detail', link: 'timetable.html' },
+        { icon: unitIcon, text: 'Contact click', link: 'timetable.html' }
       ]
     }
   ];
@@ -99,7 +112,6 @@ function PreviewSidebar({ isPanelOpen, toggleSidebar }) {
                     <p className="name"><Link to={item.link}>{item.text}</Link></p>
                   </div>
                 ))}
-               
               </div>
             )}
           </div>

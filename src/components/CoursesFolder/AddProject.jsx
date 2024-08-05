@@ -23,7 +23,7 @@ const AttachProject = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 lg:p-8">
+    <div className="max-w-3xl mx-auto p-4 lg:p-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Attach Project</h1>
       
       <form onSubmit={handleSubmit} className="bg-gray-100 p-6 rounded-lg shadow-lg">

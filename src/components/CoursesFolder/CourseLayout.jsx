@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Header from './Header';
+import Header from '../Header';
 import { Outlet, useLocation, Link } from 'react-router-dom';
-import ManageSidebar from './ManageSidebar';
-import "./Layout.css"
+import ManageSidebar from './CourseSidebar';
+import "../Layout.css"
 
 function ManageLayout() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -43,11 +43,9 @@ pathSegments.forEach((segment, index) => {
     <>
       <div className="flex">
         <ManageSidebar isPanelOpen={isPanelOpen} toggleSidebar={toggleSidebar} />
-        <div className={`${isPanelOpen ? 'blur' : ''}`}>
+        <div className={`flex flex-col w-full ${isPanelOpen ? 'blur' : ''}`}>
         <Header handlePanel={handlePanel} profileOpen={profileOpen} toggleProfile={toggleProfile} />
-        </div>
-      </div>
-      <div className={`lg:ml-56 mt-20 ${isPanelOpen ? 'blur' : ''}`}>
+        <div className={`lg:ml-56 mt-20 overflow-y-auto flex-grow ${isPanelOpen ? 'blur' : ''}`}>
       <nav className="breadcrumb p-2 mb-2">
         {breadcrumbs.map((breadcrumb, index) => (
           <span key={index}>
@@ -62,6 +60,9 @@ pathSegments.forEach((segment, index) => {
       </nav>
         <Outlet />
       </div>
+        </div>
+      </div>
+      
     </>
   );
 }

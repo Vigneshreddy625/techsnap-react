@@ -3,14 +3,14 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
 import CoursePopup from "../popups/CoursePopup";
-import CareerPathPopup from "../popups/CareerPathPopup"; // Import the new popup
+import CareerPathPopup from "../popups/CareerPathPopup"; 
 import './Layout.css';
 
 function Layout() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isAddCoursePopup, setIsAddCoursePopup] = useState(false);
-  const [isAddCareerPathPopup, setIsAddCareerPathPopup] = useState(false); // State for new popup
+  const [isAddCareerPathPopup, setIsAddCareerPathPopup] = useState(false); 
 
   const handlePanel = () => {
     setIsPanelOpen(!isPanelOpen);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Userdata from "../data.json";
-import img from "../assets/rsc/c1.avif";
-import img2 from "../assets/rsc/c2.avif";
-import img3 from "../assets/rsc/c3.avif";
-import img4 from "../assets/rsc/c4.avif";
-import img5 from "../assets/rsc/c5.avif";
-import img6 from "../assets/rsc/c6.avif";
+import Userdata from "../../data.json";
+import img from "../../assets/rsc/c1.avif";
+import img2 from "../../assets/rsc/c2.avif";
+import img3 from "../../assets/rsc/c3.avif";
+import img4 from "../../assets/rsc/c4.avif";
+import img5 from "../../assets/rsc/c5.avif";
+import img6 from "../../assets/rsc/c6.avif";
 
 function Testimonials() {
   const [testimonialsData, setTestimonialsData] = useState([
