@@ -24,7 +24,7 @@ import Video from "./components/Video";
 import Test from "./components/Test";
 import Text from "./components/Text";
 import PracticeText from "./components/PracticeText";
-import ManageTestimonial from "./components/MnageTestimonials"
+import ManageTestimonial from "./components/ManageTestimonials"
 
 function AppRoutes() { 
   return (

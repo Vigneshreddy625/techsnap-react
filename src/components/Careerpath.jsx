@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { FaRocket, FaSearch } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaRocket, FaSearch, FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import './courses-style.css';
 import { useOutletContext } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './courses-style.css';
 
 const coursesData = [
   {
@@ -52,66 +53,102 @@ const coursesData = [
 function Careerpath() {
   const navigate = useNavigate();
   const { toggleAddCareerPathPopup } = useOutletContext();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCourses, setFilteredCourses] = useState(coursesData);
+
+  useEffect(() => {
+    setFilteredCourses(
+      coursesData.filter(course =>
+        course.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm]);
 
   const handlePreview = (courseId) => {
     navigate(`/career-path/preview/info`);
   };
 
   return (
-    <>
-      <div className="courses-container">
-        <div className="flex flex-col w-full md:flex-row justify-between items-center px-8 mb-6">
-          <h1 className="text-2xl font-bold mb-4 md:mb-0 underline">Explore Career Path</h1>
-          <div className="flex items-center w-full md:w-auto">
-            <div className="relative w-full md:w-64">
-              <input
-                type="text"
-                placeholder="Search for a course"
-                className="flex-grow w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              />
-              <FaSearch className="absolute left-3 top-2 text-gray-400" />
-            </div>
-            <button
-              className="p-2 ml-2 rounded-md text-white font-bold shadow-lg transform transition duration-300 hover:scale-105"
-              onClick={toggleAddCareerPathPopup}
-              style={{
-                background: 'radial-gradient(circle farthest-corner at 10% 20%, rgb(162, 88, 253) 0%, rgba(116,182,247,1) 90%)'
-              }}
-            >
-              Add Course
-            </button>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="courses-container bg-gradient-to-br min-h-screen p-8"
+    >
+      <motion.div 
+        className="flex flex-col w-full md:flex-row justify-between items-center px-8 mb-10"
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+      >
+        <h1 className="text-4xl font-bold mb-6 md:mb-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">
+          Explore Career Path
+        </h1>
+        <div className="flex items-center w-full md:w-auto">
+          <div className="relative w-full md:w-64">
+            <input
+              type="text"
+              placeholder="Search for a course"
+              className="flex-grow w-full p-3 pl-10 border-2 border-purple-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-300"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <FaSearch className="absolute left-3 top-4 text-purple-400" />
           </div>
+          <motion.button
+            className="p-3 ml-4 rounded-full text-white font-bold shadow-lg transform transition duration-300 hover:scale-105"
+            onClick={toggleAddCareerPathPopup}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{
+              background: 'linear-gradient(45deg, #7928CA, #FF0080)'
+            }}
+          >
+            Add Course
+          </motion.button>
         </div>
-        <div className="courses course-item">
-          <div className="course-sets">
-            {coursesData.map((course, index) => (
-              <div className="course" key={index}>
-                <div className="course-details mt-2">
-                  <h3 className="course-name cd">{course.courseName}</h3>
-                  <div className="px-4">
-                    <p className="font-semibold text-md">{course.description}</p>
-                  </div>
-                  <div className="course-author cd">
-                    <img src={course.author} alt="Course Author" className="author" />
-                    <p>{course.authorName}</p>
-                  </div>
-                  <div className="diff-preview cd">
-                    <div className="flex gap-1">
-                      <FaRocket className="w-6 h-6 text-blue-500" />
-                      <p>Skill Path 3</p>
-                    </div>
-                    <div className="preview">
-                      <button className="preview-btn" onClick={() => handlePreview(index)}>Preview</button>
-                    </div>
-                  </div>
+      </motion.div>
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {filteredCourses.map((course, index) => (
+          <motion.div
+            key={index}
+            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+            whileHover={{ y: -5 }}
+          >
+            <div className="p-6">
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">{course.courseName}</h3>
+              <p className="text-gray-600 mb-4">{course.description}</p>
+              <div className="flex items-center mb-4">
+                <img src={course.author} alt="Course Author" className="w-10 h-10 rounded-full mr-3" />
+                <p className="font-medium text-gray-700">{course.authorName}</p>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex items-center">
+                  <FaRocket className="w-5 h-5 text-purple-500 mr-2" />
+                  <p className="text-sm font-medium text-gray-600">Skill Path 3</p>
+                </div>
+                <div className="flex items-center">
+                  <FaStar className="w-5 h-5 text-yellow-400 mr-1" />
+                  <p className="text-sm font-medium text-gray-600">{course.difficulty}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      
-    </>
+            </div>
+            <motion.button
+              className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+              onClick={() => handlePreview(index)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Preview Course
+            </motion.button>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
   );
 }
 

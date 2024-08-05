@@ -113,7 +113,7 @@ function Testimonials() {
       const selectedUser = selectedUsers[0];
       updatedTestimonials[editingIndex] = {
         ...updatedTestimonials[editingIndex],
-        name: `${selectedUser.first_name} ${selectedUser.last_name}`,
+        name: `${selectedUser.last_name}`,
         role: "Updated Role", 
         image: img, 
       };
